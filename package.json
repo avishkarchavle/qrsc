@@ -1,0 +1,28 @@
+{
+  "name": "qr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cloudinary": "^1.28.1",
+    "dotenv": "^14.3.2",
+    "ejs": "^3.1.6",
+    "ejs-mate": "^3.0.0",
+    "express": "^4.17.2",
+    "fs": "^0.0.1-security",
+    "html5-qrcode": "^2.1.6",
+    "image-downloader": "^4.0.3",
+    "jimp": "^0.16.1",
+    "multer": "^1.4.4",
+    "multer-storage-cloudinary": "^4.0.0",
+    "qrcode": "^1.5.0",
+    "qrcode-reader": "^1.0.4",
+    "storage": "^0.2.0"
+  }
+}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+
+    <!-- CSS only -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+</head>
+
+
+<style>
+    #preview {
+        width: 100%;
+        height: 100%;
+        margin: 0px auto;
+    }
+</style>
+
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <br><br>
+    <div class="container">
+        <!-- <div class="row mt-3 mb-2">
+            <H1 class="text-center">SCAN YOUR QR DYNAMICALLY</H1>
+        </div> -->
+        <div class="row">
+            <div class="col-md-6">
+                <video id="preview"></video>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">DECODED QR</h5>
+                        <p class="card-text">
+                            <div class="card-header">
+                                <div id="name"></div>
+                            </div>
+                        </p>
+                        <a href="" class="btn btn-primary" id="link">Tap to visit</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        var scanner = new Instascan.Scanner({
+
+            video: document.getElementById('preview'),
+
+            scanPeriod: 5,
+
+            mirror: false
+
+        });
+
+        scanner.addListener('scan', function(content) {
+            document.getElementById("name").innerHTML = content;
+            document.getElementById("link").href = `${content}`;
+            document.getElementById("link").innerHTML = 'Click here'
+                //window.location.href=content;
+        });
+
+        Instascan.Camera.getCameras().then(function(cameras) {
+
+            if (cameras.length > 0) {
+
+                scanner.start(cameras[0]);
+
+                $('[name="options"]').on('change', function() {
+
+                    if ($(this).val() == 1) {
+
+                        if (cameras[0] != "") {
+
+                            scanner.start(cameras[0]);
+
+                        } else {
+
+                            alert('No Front camera found!');
+
+                        }
+
+                    } else if ($(this).val() == 2) {
+
+                        if (cameras[1] != "") {
+
+                            scanner.start(cameras[1]);
+
+                        } else {
+
+                            alert('No Back camera found!');
+
+                        }
+
+                    }
+
+                });
+
+            } else {
+
+                console.error('No cameras found.');
+
+                alert('No cameras found.');
+
+            }
+
+        }).catch(function(e) {
+
+            console.error(e);
+
+            alert(e);
+
+        });
+    </script>
+    <br><br><br>
+    <div class="container">
+        <div class="row">
+            <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+
+                <label class="btn btn-primary active">
+
+                    <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+
+                </label>
+
+                <label class="btn btn-secondary ">
+
+                    <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js " integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p " crossorigin="anonymous "></script>
+
+</body>
+
+
+</html>
